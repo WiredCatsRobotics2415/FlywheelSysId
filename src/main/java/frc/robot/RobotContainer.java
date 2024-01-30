@@ -27,10 +27,18 @@ public class RobotContainer {
         m_mechanism.setDefaultCommand(m_mechanism.joystickDriveCommand(m_joystick::getLeftY));
 
         /* Configure the buttons to run the sysid routines */
-        m_joystick.y().onTrue(Commands.print("Y Pressed"));
-        m_joystick.a().onTrue(Commands.print("A Pressed"));
-        m_joystick.b().onTrue(Commands.print("B Pressed"));
-        m_joystick.x().onTrue(Commands.print("X Pressed"));
+        //
+        /* 
+        m_joystick.button(3).onTrue(Commands.print("Y Pressed"));
+        m_joystick.button(4).onTrue(Commands.print("A Pressed"));
+        m_joystick.button(2).onTrue(Commands.print("B Pressed"));
+        m_joystick.button(1).onTrue(Commands.print("X Pressed"));
+        */
+
+        m_joystick.button(3).whileTrue(m_mechanism.sysIdQuasistatic(SysIdRoutine.Direction.kForward));
+        m_joystick.button(4).whileTrue(m_mechanism.sysIdQuasistatic(SysIdRoutine.Direction.kReverse));
+        m_joystick.button(2).whileTrue(m_mechanism.sysIdDynamic(SysIdRoutine.Direction.kForward));
+        m_joystick.button(1).whileTrue(m_mechanism.sysIdDynamic(SysIdRoutine.Direction.kReverse));
 
         /**
          * Joystick Y = quasistatic forward
